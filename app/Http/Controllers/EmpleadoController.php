@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empleado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmpleadoController extends Controller
 {
@@ -11,7 +13,12 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        //
+        $empleados = DB::table('empleados')
+        ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
+        ->select('empleados.*', 'departamentos.nombre')
+        ->get();
+
+      return view('empleado.index', ['empleados' => $empleados]);
     }
 
     /**
@@ -19,7 +26,11 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        $departamentos = DB::table('departamentos')
+        ->orderBy('nombre')
+        ->get();
+
+        return view('empleado.new', ['departamentos' => $departamentos]);
     }
 
     /**
@@ -27,7 +38,22 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $empleado = new Empleado();
+
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->posición = $request->posición;
+        $empleado->departamento_id = $request->departamento_id;
+        $empleado->fecha_contratación = $request->fecha_contratación;
+        $empleado->salario = $request->salario;
+        $empleado->save();
+    
+        $empleados = DB::table('empleados')
+            ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
+            ->select('empleados.*', 'departamentos.nombre')
+            ->get();
+    
+        return view('empleado.index', ['empleados' => $empleados]);
     }
 
     /**
