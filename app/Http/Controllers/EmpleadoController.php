@@ -15,7 +15,7 @@ class EmpleadoController extends Controller
     {
         $empleados = DB::table('empleados')
         ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
-        ->select('empleados.*', 'departamentos.nombre')
+        ->select('empleados.*', 'departamentos.nombre as nombre_departamento')
         ->get();
 
       return view('empleado.index', ['empleados' => $empleados]);
@@ -50,7 +50,7 @@ class EmpleadoController extends Controller
     
         $empleados = DB::table('empleados')
             ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
-            ->select('empleados.*', 'departamentos.nombre')
+            ->select('empleados.*', 'departamentos.nombre as nombre_departamento')
             ->get();
     
         return view('empleado.index', ['empleados' => $empleados]);
@@ -69,15 +69,39 @@ class EmpleadoController extends Controller
      */
     public function edit(string $id)
     {
-        //
-    }
+        $empleado = Empleado::find($id);
+        $departamentos = DB::table('departamentos')
+        ->orderBy('nombre')
+        ->get();
+
+        return view('empleado.edit', [
+            'empleado' => $empleado,
+            'departamentos' => $departamentos
+        ]);
+     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $empleado = Empleado::find($id);
+
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->posición = $request->posición;
+        $empleado->departamento_id = $request->departamento_id;
+        $empleado->fecha_contratación = $request->fecha_contratación;
+        $empleado->salario = $request->salario;
+        $empleado->save();
+
+        $empleados = DB::table('empleados')
+            ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
+            ->select('empleados.*', 'departamentos.nombre as nombre_departamento')
+            ->get();
+
+        return view('empleado.index', ['empleados' => $empleados]);
+
     }
 
     /**
