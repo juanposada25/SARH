@@ -34,12 +34,12 @@
                     <td>{{ $empleado->nombre }}</td>
                     <td>{{ $empleado->apellido }}</td>
                     <td>{{ $empleado->posición }}</td>
-                    <td>{{ $empleado->nombre}}</td>
+                    <td>{{ $empleado->nombre_departamento}}</td>
                     <td>{{ $empleado->fecha_contratación }}</td>
                     <td>{{ $empleado->salario }}</td>
-                   <!-- <td>
+                  <td>
                         <a href="{{ route('empleados.edit', $empleado->id) }}" class="btn btn-info btn-sm">Editar</a>
-                        <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST" style="display:inline-block">
+                <!--    <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST" style="display:inline-block">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
