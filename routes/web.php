@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function () {
 Route::get('/empleados', [EmpleadoController::class, 'index'])->name('empleados.index');
 Route::post('/empleados', [EmpleadoController::class, 'store'])->name('empleados.store');
 Route::get('/empleados/create', [EmpleadoController::class, 'create'])->name('empleados.create');
@@ -32,6 +33,6 @@ Route::get('/asistencias/create', [AsistenciaController::class, 'create'])->name
 Route::delete('/asistencias/{asistencia}', [AsistenciaController::class, 'destroy'])->name('asistencias.destroy');
 Route::put('/asistencias/{asistencia}', [AsistenciaController::class, 'update'])->name('asistencias.update');
 Route::get('/asistencias/{asistencia}/edit', [AsistenciaController::class, 'edit'])->name('asistencias.edit');
-
+});
 
 require __DIR__.'/auth.php';

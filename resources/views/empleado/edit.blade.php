@@ -7,6 +7,46 @@
     <title>Edit Empleado</title>
   </head>
   <body>
+     <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav ms-auto">
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/empleados">Empleado</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/departamentos">Departamento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/asistencias">Asistencia</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Perfil</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Cerrar sesión</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">Registrarse</a>
+                    </li>
+                @endauth
+            </ul>
+    </nav>
     <div class="container">
       <h1>Edit Empleado</h1>
       <form method="POST" action="{{ route('empleados.update', ['empleado' => $empleado->id]) }}">
@@ -16,7 +56,6 @@
         <div class="mb-3">
           <label for="id" class="form-label">ID</label>
           <input type="text" class="form-control" id="id" name="id" disabled value="{{ $empleado->id }}">
-          <div class="form-text">Employee ID</div>
         </div>
 
         <div class="mb-3">
