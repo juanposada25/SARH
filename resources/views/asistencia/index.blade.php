@@ -35,13 +35,13 @@
                     <td>{{ $asistencia->hora_salida }}</td>
                     <td>
                         <!--
-                        <a href="{{ route('asistencias.edit', $asistencia->id) }}" class="btn btn-info btn-sm">Editar</a>
+                        <a href="{{ route('asistencias.edit', $asistencia->id) }}" class="btn btn-info btn-sm">Editar</a>-->
                         <form action="{{ route('asistencias.destroy', $asistencia->id) }}" method="POST" style="display:inline-block">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
                         </form>
-                    </td>-->
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

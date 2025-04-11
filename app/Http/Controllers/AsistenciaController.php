@@ -83,6 +83,14 @@ class AsistenciaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $asistencia = Asistencia::find($id);
+        $asistencia->delete();
+        
+        $asistencias = DB::table('asistencias')
+            ->join('empleados', 'asistencias.empleado_id', '=', 'empleados.id')
+            ->select('asistencias.*', 'empleados.nombre')
+            ->get();
+        
+        return view('asistencia.index', ['asistencias' => $asistencias]);
     }
 }
