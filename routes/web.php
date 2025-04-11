@@ -26,4 +26,12 @@ Route::delete('/empleados/{empleado}', [EmpleadoController::class, 'destroy'])->
 Route::put('/empleados/{empleado}', [EmpleadoController::class, 'update'])->name('empleados.update');
 Route::get('/empleados/{empleado}/edit', [EmpleadoController::class, 'edit'])->name('empleados.edit');
 
+Route::get('/asistencias', [AsistenciaController::class, 'index'])->name('asistencias.index');
+Route::post('/asistencias', [AsistenciaController::class, 'store'])->name('asistencias.store');
+Route::get('/asistencias/create', [AsistenciaController::class, 'create'])->name('asistencias.create');
+Route::delete('/asistencias/{asistencia}', [AsistenciaController::class, 'destroy'])->name('asistencias.destroy');
+Route::put('/asistencias/{asistencia}', [AsistenciaController::class, 'update'])->name('asistencias.update');
+Route::get('/asistencias/{asistencia}/edit', [AsistenciaController::class, 'edit'])->name('asistencias.edit');
+
+
 require __DIR__.'/auth.php';
