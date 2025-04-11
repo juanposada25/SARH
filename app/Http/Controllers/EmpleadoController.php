@@ -67,7 +67,7 @@ class EmpleadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
         $empleado = Empleado::find($id);
         $departamentos = DB::table('departamentos')
@@ -83,7 +83,7 @@ class EmpleadoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
         $empleado = Empleado::find($id);
 
@@ -107,8 +107,16 @@ class EmpleadoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $empleado = Empleado::find($id);
+        $empleado->delete();
+        
+        $empleados = DB::table('empleados')
+            ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
+            ->select('empleados.*', 'departamentos.nombre as nombre_departamento')
+            ->get();
+        
+        return view('empleado.index', ['empleados' => $empleados]);
     }
 }

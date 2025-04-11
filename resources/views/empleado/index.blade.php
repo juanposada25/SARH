@@ -39,12 +39,12 @@
                     <td>{{ $empleado->salario }}</td>
                   <td>
                         <a href="{{ route('empleados.edit', $empleado->id) }}" class="btn btn-info btn-sm">Editar</a>
-                <!--    <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST" style="display:inline-block">
+                        <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST" style="display:inline-block">
                             @csrf
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
                         </form>
-                    </td> -->
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
