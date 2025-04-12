@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Departamento;
+use illuminate\Support\Facades\DB;
 
 class DepartamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
-        //
+        $departamentos= departamento::all();
+        return view('departamento.index',['departamentos' => $departamentos]);
+        
     }
 
     /**
