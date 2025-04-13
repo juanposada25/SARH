@@ -53,7 +53,8 @@
   <body>
     <div class= "container">
         <h1>Agregar Departamento</h1>
-        <form>
+        <form action="{{ route('departamentos.store') }}" method="POST">
+            @csrf
             </div>
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
