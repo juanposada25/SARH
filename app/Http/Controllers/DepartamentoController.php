@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Departamento;
-use illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class DepartamentoController extends Controller
 {
@@ -14,8 +14,9 @@ class DepartamentoController extends Controller
     
     public function index()
     {
-        $departamentos= departamento::all();
-        return view('departamento.index',['departamentos' => $departamentos]);
+        $departamentos = DB::table('departamentos')->get();
+        return view('departamento.index', ['departamentos' => $departamentos]);
+
         
     }
 
@@ -24,7 +25,7 @@ class DepartamentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('departamento.new');
     }
 
     /**
@@ -32,7 +33,13 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $departamento = new Departamento();
+        $departamento->nombre = $request->nombre;
+        $departamento->ubicacion = $request->ubicacion;
+        $departamento->numero_telefono = $request->numero_telefono;
+        $departamento->save();
+
+        return redirect()->route('departamentos.index');
     }
 
     /**
