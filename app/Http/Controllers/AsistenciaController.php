@@ -67,7 +67,16 @@ class AsistenciaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $asistencia = Asistencia::find($id);
+
+
+        $empleados = DB::table('empleados')
+        ->orderBy('nombre')->get();
+
+        return view('asistencia.edit', [
+            'asistencia' => $asistencia,
+            'empleados' => $empleados
+        ]);
     }
 
     /**
@@ -75,7 +84,20 @@ class AsistenciaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $asistencia = Asistencia::find($id);
+        
+        $asistencia->empleado_id = $request->empleado_id;
+        $asistencia->fecha = $request->fecha;
+        $asistencia->hora_entrada = $request->hora_entrada;
+        $asistencia->hora_salida = $request->hora_salida;
+        $asistencia->save();
+
+        $asistencias = DB::table('asistencias')
+        ->join('empleados', 'asistencias.empleado_id', '=', 'empleados.id')
+        ->select('asistencias.*', 'empleados.nombre')
+        ->get();
+    
+        return view('asistencia.index', ['asistencias' => $asistencias]);
     }
 
     /**
