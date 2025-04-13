@@ -74,8 +74,7 @@
                     <td>{{ $asistencia->hora_entrada }}</td>
                     <td>{{ $asistencia->hora_salida }}</td>
                     <td>
-                        <!--
-                        <a href="{{ route('asistencias.edit', $asistencia->id) }}" class="btn btn-info btn-sm">Editar</a>-->
+                        <a href="{{ route('asistencias.edit', $asistencia->id) }}" class="btn btn-info btn-sm">Editar</a>
                         <form action="{{ route('asistencias.destroy', $asistencia->id) }}" method="POST" style="display:inline-block">
                             @csrf
                             @method('DELETE')
