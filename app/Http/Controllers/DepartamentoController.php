@@ -55,7 +55,9 @@ class DepartamentoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $departamento = Departamento::findOrFail($id);
+        return view('departamento.edit', ['departamento' => $departamento]);
+
     }
 
     /**
@@ -63,7 +65,15 @@ class DepartamentoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $departamento = Departamento::find($id);
+        
+        $departamento->nombre = $request->nombre;
+        $departamento->ubicacion = $request->ubicacion;
+        $departamento->numero_telefono = $request->numero_telefono;
+        $departamento->save();
+
+        return redirect()->route('departamentos.index');
+
     }
 
     /**
